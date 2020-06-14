@@ -1,0 +1,55 @@
+schema {
+  query: RootQueryType
+}
+
+type Diameter {
+  meters: Float
+  feet: Float
+}
+
+type Height {
+  meters: Int!
+  feet: Int!
+}
+
+type Launch {
+  flight_number: Int
+  mission_name: String
+  launch_year: String
+  launch_date_local: String
+  launch_success: Boolean
+  rocket: Rocket
+  links: Links
+}
+
+type Links {
+  mission_patch: String
+  mission_patch_small: String
+  article_link: String
+  wikipedia: String
+  video_link: String
+}
+
+type Mass {
+  kg: Int
+  lb: Int
+}
+
+type Rocket {
+  rocket_id: String
+  rocket_name: String
+  rocket_type: String
+  cost_per_launch: Int
+  description: String
+  height: Height
+  diameter: Diameter
+  mass: Mass
+}
+
+type RootQueryType {
+  launches: [Launch]
+  launch(flight_number: Int): Launch
+  rockets: [Rocket]
+  rocket(id: Int): Rocket
+}
+
