@@ -1,0 +1,13 @@
+{
+  schema: {
+    files: 'schema_spacex.graphql'
+  },
+  query: {
+    files: [
+      {
+        match: ['src/**/*.js', 'src/**/*.jsx'],
+        parser: ['EmbeddedQueryParser', { startTag: 'gql`', endTag: '`'}]
+      }
+    ]
+  }
+}

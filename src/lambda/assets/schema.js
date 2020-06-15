@@ -56,6 +56,7 @@ const LatestLaunchType = new GraphQLObjectType({
   }),
 })
 
+/** LaunchLinkType */
 const LaunchLinkType = new GraphQLObjectType({
   name: "Links",
   fields: () => ({

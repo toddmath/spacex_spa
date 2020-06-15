@@ -1,0 +1,31 @@
+query launchLatest {
+    id
+    mission_id
+    mission_name
+    launch_year
+    launch_date_local
+    launch_success
+    tentative_max_precision
+    details
+    links {
+      mission_patch_small
+      presskit
+      article_link
+      wikipedia
+      video_link
+      flickr_images
+    }
+    rocket {
+      rocket_name
+      rocket_type
+      rocket {
+        cost_per_launch
+        description
+      }
+    }
+    launch_site {
+      site_id
+      site_name
+      site_name_long
+    }
+  }

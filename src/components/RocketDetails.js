@@ -10,13 +10,16 @@ import {
   ListGroupItem,
 } from 'reactstrap'
 
-import { FaWikipediaW as Wikipedia, FaFilePdf as PdfFileIcon } from 'react-icons/fa'
+import {
+  FaWikipediaW as Wikipedia,
+  FaFilePdf as PdfFileIcon,
+} from 'react-icons/fa'
 import DetailListItem from './DetailListItem'
 import { useBackground } from '../context/background.context'
 
-const showTwo = pics => pics.filter((p, i) => i >= 2 && i <= 3)
+const showTwo = (pics) => pics.filter((p, i) => i >= 2 && i <= 3)
 
-const RocketDetails = ({
+function RocketDetails({
   success,
   id,
   name,
@@ -25,7 +28,7 @@ const RocketDetails = ({
   article,
   pressKit,
   flickr,
-}) => {
+}) {
   const [bg, setBg] = useBackground()
 
   useEffect(() => {

@@ -1,25 +1,25 @@
 /* eslint-disable no-unused-vars */
 import React from 'react'
 import { Link } from 'react-router-dom'
-import gql from 'graphql-tag'
-import { useQuery } from '@apollo/react-hooks'
+import { useQuery, gql } from '@apollo/client'
 import { Container, Media, Col } from 'reactstrap'
 import classNames from 'classnames'
 
+// import launchLatest from '../graphql/queries/launchLatest.gql'
 import LaunchDetails from './LaunchDetails'
 import RocketDetails from './RocketDetails'
 import LaunchVideo from './LaunchVideo'
 
-const LATEST_LAUNCH_QUERY = gql`
-  query LatestLaunch {
-    latestLaunch {
-      flight_number
+const LATEST_LAUNCH = gql`
+  query launchLatest {
+    launchLatest {
+      id
+      mission_id
       mission_name
       launch_year
       launch_date_local
       launch_success
       tentative_max_precision
-      tbd
       details
       links {
         mission_patch_small
@@ -30,11 +30,12 @@ const LATEST_LAUNCH_QUERY = gql`
         flickr_images
       }
       rocket {
-        rocket_id
         rocket_name
         rocket_type
-        cost_per_launch
-        description
+        rocket {
+          cost_per_launch
+          description
+        }
       }
       launch_site {
         site_id
@@ -46,17 +47,20 @@ const LATEST_LAUNCH_QUERY = gql`
 `
 
 function LatestLaunch() {
-  const { error, loading, data } = useQuery(LATEST_LAUNCH_QUERY)
+  const { error, loading, data } = useQuery(LATEST_LAUNCH)
 
   if (loading) return <h4>Loading...</h4>
-  if (error) return console.log(`Error loading launch: ${error.message}`)
+  if (error) return <div>Error loading launch: {error.message}</div>
 
   const {
-    flight_number,
+    id,
     mission_name,
     launch_year,
     launch_success,
     details,
+    mission_id,
+    launch_date_local,
+    tentative_max_precision,
     links: {
       mission_patch_small,
       presskit,
@@ -65,9 +69,14 @@ function LatestLaunch() {
       video_link,
       flickr_images,
     },
-    rocket: { rocket_id, rocket_name, rocket_type, cost_per_launch, description },
+    rocket: {
+      rocket_id,
+      rocket_name,
+      rocket_type,
+      rocket: { cost_per_launch, description },
+    },
     launch_site: { site_id, site_name, site_name_long },
-  } = data.latestLaunch
+  } = data.launchLatest
 
   return (
     <div>
@@ -95,7 +104,7 @@ function LatestLaunch() {
 
       <LaunchDetails
         success={launch_success}
-        flight_number={flight_number}
+        flight_number={id}
         launch_year={launch_year}
         details={details}
         site_name={site_name_long}
