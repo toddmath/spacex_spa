@@ -49,7 +49,7 @@
     "@apollo/client": "^3.0.0-rc.4",
     "@playlyfe/gql": "^2.6.2",
     "apollo-server-lambda": "^2.14.4",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "classnames": "^2.2.6",
     "concurrently": "^5.2.0",
     "cors": "^2.8.5",
